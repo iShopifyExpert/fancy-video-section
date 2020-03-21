@@ -2,13 +2,13 @@
 <link href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" rel="stylesheet" type="text/css" media="all">
 <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" type="text/javascript"></script>
 {% endif %}
-
+{% if section.settings.video_url != blank  %}
 <div class="play-circle-container">
   <div class="play-circle">
-   <a data-fancybox="gallery" href="https://www.youtube.com/embed/{{ section.settings.video_url.id }}?rel=0&showinfo=0&vq=720" class="play-btn" data-width="980" data-height="550" id="video-fancybox"><div class="play-tri-container"><div class="play-tri"></div></div></a>
+   <a data-fancybox="gallery" data-video-type="{{ section.settings.video_url.type }}" href="{% if section.settings.video_url.type == 'vimeo'  %}http://player.vimeo.com/video/{{ section.settings.video_url.id }}?title=0&amp;byline=0&amp;portrait=0{% elsif section.settings.video_url.type == 'youtube'  %}https://www.youtube.com/embed/{{ section.settings.video_url.id }}?rel=0&showinfo=0&vq=720{% endif %}" class="play-btn" data-width="980" data-height="550" id="video-fancybox"><div class="play-tri-container"><div class="play-tri"></div></div></a>
   </div>
 </div>
-
+{% endif %}
 <style>
 .play-circle-container {
   position: absolute;
@@ -53,7 +53,7 @@
       "type": "video_url",
       "id": "video_url",
       "label": "Video Url",
-      "accept": ["youtube"],
+      "accept": ["youtube","vimeo"],
       "default": "https://www.youtube.com/watch?v=nM5mP4CSE28"
     }
   ]
