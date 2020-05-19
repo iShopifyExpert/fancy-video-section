@@ -1,0 +1,71 @@
+<div class="video-container">
+    	<video id="video-new" autoplay muted loop playsinline>
+       		<source id="mp4" src="{{ section.settings.video_url_mp4 }}" type="video/mp4"/>
+     	</video>
+  <button id="mute-video" class="mute-video">Umute Video</button>
+  	<a href="/collections/frontpage" class="video-container-button--hide animated btn" style="width: 100%;margin-top: -6px;">   
+     <span>Shop The Collection </span>
+         <span class="arrow">arrrow</span>
+	</a>
+</div>
+ 
+
+{% schema %}
+  {
+    "name": "Homepage Video",
+	"class": "homepage_video",
+    "settings": [
+      {
+        "type": "text",
+        "id": "video_url_mp4",
+        "label": "Video Link (MP4)",
+		"info": "Upload video by going to Files and copy/paste link here"
+      }
+	],
+	"presets": [
+      {
+        "name": "Hompage Video",
+        "category": "Video"
+	  }
+    ]
+  }
+{% endschema %}
+
+ <script>
+$(document).ready(function(){
+    
+  $("#video-new").trigger("play");
+   $("#video-new").addClass('play');
+  var video = document.getElementById("video-new");
+  /**
+   * Check if video can play, and play it
+   */
+  video.addEventListener( "canplay", function() {
+    video.play();
+  });
+
+$('#video-new').click(function() {
+if ($(this).hasClass('pause')) {
+     $("#video-new").trigger("play");
+     $(this).removeClass('pause');
+     $(this).addClass('play');
+} else {
+     $("#video-new").trigger("pause");
+     $(this).removeClass('play');
+     $(this).addClass('pause');
+}
+});
+  
+  $("#mute-video").click( function (){
+    if( $("video").prop('muted') ) {
+          $("video").prop('muted', false);
+      	  $(this).text("Mute Video");
+    } else {
+      $("video").prop('muted', true);
+      $(this).text("Unmute Video");
+    }
+  });
+
+
+});
+</script>
